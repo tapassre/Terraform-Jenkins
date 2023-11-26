@@ -12,11 +12,9 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                 script{
-                        
-                            git "https://github.com/tapassre/Terraform-Jenkins.git"
-                        }
-                    
+                                       
+                   git branch: 'main', url: 'https://github.com/tapassre/Terraform-Jenkins.git'
+                                       
                 }
             }
 
