@@ -30,14 +30,20 @@ pipeline {
                 // sh 'terraform show -no-color tfplan > tfplan.txt'
             }
         }
-       / *
+
+         stage('Apply') {
+            steps {
+                sh 'terraform apply'
+            }
+        }
+       /*
         stage('Approval') {
            when {
                not {
                    equals expected: true, actual: params.autoApprove
                }
            }
-         * /
+         */
            /* steps {
                script {
                     def plan = readFile 'tfplan.txt'
@@ -48,12 +54,7 @@ pipeline {
           */
        }
 
-        stage('Apply') {
-            steps {
-                // sh "terraform apply -input=false tfplan"
-                sh ' terraform apply'
-            }
-        }
+       
     }
 
   
