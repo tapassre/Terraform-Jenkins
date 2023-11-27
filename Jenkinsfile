@@ -18,10 +18,15 @@ pipeline {
                 }
             }
 
-        stage('Plan') {
+        stage('Init') {
             steps {
                 sh 'terraform init'
-                sh "terraform plan -out tfplan"
+                  }
+        }
+
+        stage('Plan') {
+            steps {
+               sh "terraform plan -out tfplan"
                 sh 'terraform show -no-color tfplan > tfplan.txt'
             }
         }
@@ -34,7 +39,7 @@ pipeline {
 
            steps {
                script {
-                    def plan = readFile 'terraform/tfplan.txt'
+                    def plan = readFile 'tfplan.txt'
                     input message: "Do you want to apply the plan?",
                     parameters: [text(name: 'Plan', description: 'Please review the plan', defaultValue: plan)]
                }
